@@ -1,8 +1,18 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-panel-ui-workspaces-text = Espaços
+zen-panel-ui-spaces-label = 
+    .label = Espaços
 zen-panel-ui-workspaces-create = 
     .label = Criar Espaço
 zen-panel-ui-folder-create = 
-    .label = Nova Pasta
+    .label = Criar Pasta
+zen-panel-ui-live-folder-create = 
+    .label = Pasta Dinâmica
+zen-panel-ui-new-empty-split = 
+    .label = Nova Divisão
 zen-workspaces-panel-context-delete = 
     .label = Excluir Espaço
     .accesskey = D
@@ -12,6 +22,10 @@ zen-workspaces-panel-change-icon =
     .label = Alterar Ícone
 zen-workspaces-panel-context-default-profile = 
     .label = Definir Perfil
+zen-workspaces-panel-unload = 
+    .label = Descarregar Espaço
+zen-workspaces-panel-unload-others = 
+    .label = Descarregar Todos os Outros Espaços
 zen-workspaces-how-to-reorder-title = Como reordenar os espaços
 zen-workspaces-how-to-reorder-desc = Arraste os ícones dos espaços na parte inferior da barra lateral para reordená-los
 zen-workspaces-change-theme = 
@@ -22,11 +36,8 @@ zen-workspaces-panel-context-open =
 zen-workspaces-panel-context-edit = 
     .label = Editar Espaço
     .accesskey = E
-context-zen-change-workspace-tab = 
-    .label = Mover Guia(s) para a Área de Trabalho
-    .accesskey = C
 zen-bookmark-edit-panel-workspace-selector = 
-    .value = Áreas de Trabalho
+    .value = Espaços
     .accesskey = W
 zen-panel-ui-gradient-generator-algo-complementary = 
     .label = Complementar
@@ -41,6 +52,9 @@ zen-panel-ui-gradient-generator-algo-floating =
 zen-panel-ui-gradient-click-to-add = Clique para adicionar uma cor
 zen-workspace-creation-name = 
     .placeholder = Nome do Espaço
+zen-move-tab-to-workspace-button = 
+    .label = Mover Para...
+    .tooltiptext = Move todas as guias nesta janela para um Espaço
 zen-workspaces-panel-context-reorder = 
     .label = Reordenar Espaços
 zen-workspace-creation-profile = Perfil
@@ -49,3 +63,13 @@ zen-workspace-creation-header = Crie um Espaço
 zen-workspace-creation-label = Espaços são usados para organizar suas guias e sessões.
 zen-workspaces-delete-workspace-title = Excluir Espaço?
 zen-workspaces-delete-workspace-body = Tem certeza que deseja excluir { $name }? Esta ação não pode ser desfeita.
+# Note that the html tag MUST not be changed or removed, as it is used to better
+# display the shortcut in the toast notification.
+zen-workspaces-close-all-unpinned-tabs-toast = Abas Fechadas! Use <span>{ $shortcut }</span> para desfazer.
+zen-workspaces-close-all-unpinned-tabs-title = 
+    .label = Limpar
+    .tooltiptext = Fechar todas as abas não fixadas
+zen-panel-ui-workspaces-change-forward = 
+    .label = Próximo Espaço
+zen-panel-ui-workspaces-change-back = 
+    .label = Espaço Anterior

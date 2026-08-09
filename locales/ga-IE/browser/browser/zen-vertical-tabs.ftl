@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Cluaisíní ar an dheis
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Mód dlúth
-    .accesskey = D’Athraigh Chluaisíní(s) go Spás Oibre
 zen-toolbar-context-compact-mode-enable = 
     .label = Cumasaigh mód dlúth
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Folaigh an dá cheann
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Bog go Fillteán...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Fillteán Nua
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Athshocraigh agus priontáil an cluaisín
            *[other] Athshocraigh agus priontáil an cluaisín { $tabCount }
         }
-tab-reset-pin-label = Ar ais chuig an url bioráilte
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Ar ais go dtí an url bioráilte
+        [zen-default-pinned-cmd] Ar leithligh ón gcluaisín bioráilte
+       *[other] { $tabSubtitle }
+    }

@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Tab Di Sisi Kanan
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Mode Ringkas
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Aktifkan Mode Ringkas
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Sembunyikan keduanya
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Move to Folder...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Folder Baru
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Reset dan sematkan tab
            *[other] Reset dan sematkan { $tabCount } tab
         }
-tab-reset-pin-label = Kembali ke URL awal
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Kembali ke URL Awal
+        [zen-default-pinned-cmd] Pisahkan dari tab tersemat
+       *[other] { $tabSubtitle }
+    }

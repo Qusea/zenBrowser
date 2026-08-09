@@ -1,0 +1,12 @@
+diff --git a/browser/components/aiwindow/ui/modules/AIWindow.sys.mjs b/browser/components/aiwindow/ui/modules/AIWindow.sys.mjs
+index 88c3545431cf1a300d968c296d9b171871b15fe5..754cd644f2e7b82db40d5c06618ac1764424484c 100644
+--- a/browser/components/aiwindow/ui/modules/AIWindow.sys.mjs
++++ b/browser/components/aiwindow/ui/modules/AIWindow.sys.mjs
+@@ -308,6 +308,7 @@ export const AIWindow = {
+   },
+ 
+   _updateToolbarButtonPositions(win) {
++    return;
+     const modeSwitcherButton = win.document.getElementById("ai-window-toggle");
+     const hamburgerMenu = win.document.getElementById("PanelUI-button");
+     const hamburgerMenuShouldBeAdjacent =

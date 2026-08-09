@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/* Styles for both vertical and horizontal tabs */
+
 @import url('chrome://browser/content/zen-styles/zen-tabs/vertical-tabs.css');
 
 #zen-tabbox-wrapper {
@@ -36,9 +36,7 @@
       * - Bookmarks toolbar is visible OR
       * - The container is explicitly marked to hide controls (e.g., on Linux with reversed controls)
       */
-    &:has(#PersonalToolbar:not([collapsed])) {
-%include zen-tabs/vertical-tabs-topbar.inc.css
-    }
+    :root[zen-has-bookmarks] &,
     &[should-hide='true'] {
 %include zen-tabs/vertical-tabs-topbar.inc.css
     }
@@ -108,4 +106,25 @@
     /* Include common fixes for this top-button scenario */
 %include zen-tabs/vertical-tabs-topbuttons-fix.css
   }
+
+  &:not([zen-right-side='true']):not([zen-sidebar-expanded='true']):not([zen-window-buttons-reversed='true']),
+  &[zen-right-side='true']:not([zen-sidebar-expanded='true'])[zen-window-buttons-reversed='true'] {
+    & #titlebar {
+      padding-top: var(--zen-toolbar-height);
+    }
+
+    & #nav-bar {
+      width: calc(100% + var(--zen-toolbox-max-width) - var(--zen-element-separation));
+
+      /**
+       * We only want it when the window buttons are on the left side, in other
+       * words, the first of the two selectors above.
+       */
+      :root:not([zen-window-buttons-reversed='true']) & {
+        margin-left: calc(-1 * var(--zen-toolbox-max-width) + var(--zen-element-separation) + 4px);
+      }
+    }
+  }
 }
+
+%include zen-essentials-promo.css

@@ -1,3 +1,7 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-folders-search-placeholder = 
     .placeholder = Hledat v { $folder-name }...
 zen-folders-panel-rename-folder = 
@@ -12,8 +16,6 @@ zen-folders-panel-convert-folder-to-space =
     .label = Převést složku na prostor
 zen-folders-panel-change-folder-space = 
     .label = Změnit prostor...
-zen-folders-panel-change-icon-folder = 
-    .label = Změnit ikonu
 zen-folders-unload-all-tooltip = 
     .tooltiptext = Uspat aktivní panely v této složce
 zen-folders-unload-folder = 

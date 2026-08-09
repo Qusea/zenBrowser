@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Pestanyes a la dreta
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Mode compacte
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Habilita el mode compacte
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Amaga les dues
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Mou a la carpeta...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Carpeta nova
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Restableix i fixa la pestanya
            *[other] Restableix i fixa les { $tabCount } pestanyes
         }
-tab-reset-pin-label = Torna a l'URL fixat
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Torna a l'URL fixat
+        [zen-default-pinned-cmd] Separa de la pestanya fixada
+       *[other] { $tabSubtitle }
+    }

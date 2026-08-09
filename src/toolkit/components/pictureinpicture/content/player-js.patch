@@ -1,8 +1,8 @@
 diff --git a/toolkit/components/pictureinpicture/content/player.js b/toolkit/components/pictureinpicture/content/player.js
-index 3be55670e18ed2ae1e02307304a3699d16d89aa5..477933646c3623432164be06c31ef5328f86bba6 100644
+index 34d92dcfba54de4752036d0e251243729b6c9626..20a0399e3bf6f9827f805ea6975b801ae269646d 100644
 --- a/toolkit/components/pictureinpicture/content/player.js
 +++ b/toolkit/components/pictureinpicture/content/player.js
-@@ -755,6 +755,11 @@ let Player = {
+@@ -764,6 +764,11 @@ let Player = {
          document.getElementById("large").click();
          break;
        }

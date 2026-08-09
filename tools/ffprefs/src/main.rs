@@ -102,6 +102,7 @@
 //
 
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::PathBuf;
@@ -135,24 +136,33 @@ fn ordered_prefs(mut prefs: Vec<Preference>) -> Vec<Preference> {
     prefs
 }
 
-fn load_preferences() -> Vec<Preference> {
-    let mut prefs = Vec::new();
-    let config_path = get_config_path();
-    // Iterate each file in the prefs directory
-    if let Ok(entries) = fs::read_dir(&config_path) {
+fn get_prefs_files_recursively(dir: &PathBuf, files: &mut Vec<PathBuf>) {
+    if let Ok(entries) = fs::read_dir(dir) {
         for entry in entries {
             if let Ok(entry) = entry {
-                if let Some(ext) = entry.path().extension() {
+                let path = entry.path();
+                if path.is_dir() {
+                    get_prefs_files_recursively(&path, files);
+                } else if let Some(ext) = path.extension() {
                     if ext == "yaml" || ext == "yml" {
-                        let file_path = entry.path();
-                        let content = fs::read_to_string(&file_path).expect("Failed to read file");
-                        let mut parsed_prefs: Vec<Preference> =
-                            serde_yaml::from_str(&content).expect("Failed to parse YAML");
-                        prefs.append(&mut parsed_prefs);
+                        files.push(path);
                     }
                 }
             }
         }
+    }
+}
+
+fn load_preferences() -> Vec<Preference> {
+    let mut prefs = Vec::new();
+    let config_path = get_config_path();
+    let mut pref_files = Vec::new();
+    get_prefs_files_recursively(&config_path, &mut pref_files);
+    for file_path in pref_files {
+        let content = fs::read_to_string(&file_path).expect("Failed to read file");
+        let mut parsed_prefs: Vec<Preference> =
+            serde_yaml::from_str(&content).expect("Failed to parse YAML");
+        prefs.append(&mut parsed_prefs);
     }
     ordered_prefs(prefs)
 }
@@ -308,6 +318,48 @@ fn prepare_zen_prefs() {
     }
 }
 
+fn is_twilight_build() -> bool {
+    // Check if '"twilight"' is on .surfer/dynamicConfig.brand.json
+    let mut dynamic_config_path = env::current_dir().expect("Failed to get current directory");
+    dynamic_config_path.push(".surfer");
+    dynamic_config_path.push("dynamicConfig.brand.json");
+    if let Ok(content) = fs::read_to_string(&dynamic_config_path) {
+        return !content.contains("\"release\"");
+    }
+    true
+}
+
+fn get_env_values() -> HashMap<String, bool> {
+    let mut env_values = HashMap::new();
+    env_values.insert("IS_TWILIGHT".into(), is_twilight_build());
+    env_values
+}
+
+fn expand_pref_values(prefs: &mut [Preference]) {
+    let env_values = get_env_values();
+    for pref in prefs {
+        let mut new_value = pref.value.clone();
+        for (key, value) in &env_values {
+            let placeholder = format!("@{}@", key);
+            if new_value.contains(&placeholder) {
+                new_value = new_value.replace(&placeholder, if *value { "true" } else { "false" });
+            }
+            pref.value = new_value.clone();
+        }
+        // Also change the condition if it contains placeholders
+        if let Some(condition) = &pref.condition {
+            let mut new_condition = condition.clone();
+            for (key, value) in &env_values {
+                let placeholder = format!("@{}@", key);
+                if new_condition.contains(&placeholder) {
+                    new_condition = new_condition.replace(&placeholder, if *value { "1" } else { "0" });
+                }
+                pref.condition = Some(new_condition.clone());
+            }
+        }
+    }
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let root_path = if args.len() > 1 {
@@ -318,6 +370,7 @@ fn main() {
     env::set_current_dir(&root_path).expect("Failed to change directory");
 
     prepare_zen_prefs();
-    let preferences = load_preferences();
+    let mut preferences = load_preferences();
+    expand_pref_values(&mut preferences);
     write_preferences(&preferences);
 }

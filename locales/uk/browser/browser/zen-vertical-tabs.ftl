@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Вкладки праворуч
     .accesskey = Р
 zen-toolbar-context-compact-mode = 
     .label = Компактний режим
-    .accesskey = До
 zen-toolbar-context-compact-mode-enable = 
     .label = Увімкнути компактний режим
     .accesskey = Ре
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Приховувати обидві
     .accesskey = Н
+zen-toolbar-context-move-to-folder = 
+    .label = Перемістити до теки...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Нова тека
     .accesskey = N
@@ -35,4 +41,9 @@ tabbrowser-reset-pin-button =
             [few] Скинути та закріпити { $tabCount } вкладки
            *[other] Скинути та закріпити { $tabCount } вкладок
         }
-tab-reset-pin-label = Повернутися до закріпленої адреси
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Назад до закріпленої URL-адреси
+        [zen-default-pinned-cmd] Відокремити від закріпленої вкладки
+       *[other] { $tabSubtitle }
+    }

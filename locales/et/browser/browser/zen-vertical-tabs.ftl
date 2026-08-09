@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Kaardid paremal
     .accesskey = p
 zen-toolbar-context-compact-mode = 
     .label = Kompaktne režiim
-    .accesskey = K
 zen-toolbar-context-compact-mode-enable = 
     .label = Luba kompaktne režiim
     .accesskey = r
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Peida mõlemad
     .accesskey = P
+zen-toolbar-context-move-to-folder = 
+    .label = Move to Folder...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Uus kaust
     .accesskey = U
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Lähtesta ja tee püsikaardiks
            *[other] Lähtesta ja tee püsikaardiks { $tabCount } kaarti
         }
-tab-reset-pin-label = Tagasi püsikaardi URL-ile
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Back to pinned url
+        [zen-default-pinned-cmd] Separate from pinned tab
+       *[other] { $tabSubtitle }
+    }

@@ -4,177 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-tab-group[split-view-group] {
-  display: block;
-  @media (prefers-reduced-motion: no-preference) {
-    transition: var(--zen-tabbox-element-indent-transition);
-
-    #tabbrowser-tabs[movingtab] & {
-      transition: var(--tab-dragover-transition), var(--zen-tabbox-element-indent-transition);
-    }
-  }
-  --zen-split-view-active-tab-bg: color-mix(
-    in srgb,
-    var(--zen-toolbar-element-bg),
-    transparent 40%
-  );
-
-  --tab-collapsed-background-width: none;
-
-  :root[zen-sidebar-expanded='true'] & {
-    margin-inline-start: var(--zen-folder-indent) !important;
-  }
-
-  & .tab-group-label {
-    height: 100% !important;
-  }
-
-  & .tab-group-container {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-
-    border-radius: var(--border-radius-medium);
-    padding: 0 2px;
-    margin-inline: var(--tab-block-margin);
-    margin-block: var(--tab-block-margin);
-    min-height: var(--tab-min-height);
-    outline: var(--tab-outline);
-    outline-offset: var(--tab-outline-offset);
-    outline-color: var(--tab-selected-outline-color);
-    transition: scale 0.1s ease;
-    margin-inline: 2px !important;
-
-    :root:not([zen-sidebar-expanded='true']) & {
-      padding: 0;
-      --tab-collapsed-width: 38px;
-      overflow: clip;
-      --tab-min-width: 34px;
-      outline: 2px solid var(--zen-colors-border-contrast);
-      outline-offset: -2px;
-    }
-
-    & > .tabbrowser-tab {
-      --tab-selected-bgcolor: var(--zen-split-view-active-tab-bg);
-      --tab-hover-background-color: transparent;
-      --tab-selected-shadow: none;
-      --border-radius-medium: var(--tab-border-radius);
-      --zen-active-tab-scale: 1;
-      --zen-folder-indent: 0 !important;
-
-      :root[zen-sidebar-expanded='true'] & {
-        --tab-min-height: 28px;
-      }
-
-      container-type: inline-size;
-      container-name: browser-tab;
-
-      flex: 1 !important;
-      padding-inline: 2px !important;
-      overflow: clip;
-
-      &:not(:last-child)::after {
-        content: '';
-        width: 1px;
-        height: 16px;
-        background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      :root:not([zen-sidebar-expanded='true']) &:not(:last-child)::after {
-        width: 16px;
-        height: 1px;
-        top: auto;
-        bottom: 0;
-        right: 50%;
-        transform: translateX(50%);
-      }
-
-      & .tab-content {
-        min-width: 0;
-        :root[zen-sidebar-expanded='true'] & {
-          justify-content: unset !important;
-        }
-      }
-    }
-
-    &:has(> tab:is([visuallyselected], [multiselected])) {
-      background-color: var(--tab-selected-bgcolor);
-      box-shadow: var(--tab-selected-shadow);
-
-      & > .tabbrowser-tab {
-        --tab-hover-background-color: var(--zen-split-view-active-tab-bg);
-        & .tab-background {
-          background-color: var(--zen-split-view-active-tab-bg) !important;
-        }
-
-        &::after {
-          display: none;
-        }
-      }
-    }
-
-    &:active {
-      scale: var(--zen-active-tab-scale);
-    }
-
-    &:hover {
-      background-color: var(--zen-toolbar-element-bg);
-    }
-
-    & .tab-close-button,
-    & .tab-reset-button {
-      margin-inline-end: -3px !important;
-      display: none !important;
-    }
-
-    @container browser-tab (min-width: 70px) {
-      :root[zen-sidebar-expanded='true'] &:hover > .tabbrowser-tab:not([pinned]) .tab-close-button {
-        display: block !important;
-      }
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      #tabbrowser-tabs[movingtab] & {
-        transition: var(--tab-dragover-transition);
-      }
-    }
-  }
-}
-
-:root:not([zen-sidebar-expanded='true']) {
-  tab-group .tab-group-container {
-    flex-direction: column;
-  }
-}
-
-tab-group[split-view-group] .tabbrowser-tab {
-  width: 100%;
-  max-width: unset;
-}
-
-tab-group[split-view-group] .tab-group-label-container {
-  position: absolute;
-  width: -moz-available;
-  height: 36px;
-  visibility: hidden;
-  padding: 0 !important;
-  margin: 2px 0 0 0 !important;
-}
-
-tab-group[split-view-group] .tab-close-button {
-  display: block;
-  visibility: visible;
-}
-
-tab-group[split-view-group] .tab-group-line {
-  display: none;
-  background: transparent;
-}
-
 .tab-group-line {
   display: none !important;
 }
@@ -184,23 +13,14 @@ zen-folder {
   flex-direction: column;
   visibility: visible;
 
-  --zen-folder-behind-bgcolor: light-dark(
-    color-mix(in srgb, var(--zen-primary-color) 85%, white),
-    color-mix(in srgb, var(--zen-primary-color) 60%, #c1c1c1)
-  );
-  --zen-folder-front-bgcolor: light-dark(
-    color-mix(in srgb, var(--zen-primary-color), white 70%),
-    color-mix(in srgb, var(--zen-primary-color), black 40%)
-  );
-  --zen-folder-stroke: light-dark(
-    color-mix(in srgb, var(--zen-primary-color) 60%, black),
-    color-mix(in srgb, var(--zen-colors-primary) 20%, var(--toolbox-textcolor))
-  );
+  --zen-folder-behind-bgcolor: light-dark(color-mix(in srgb, var(--zen-primary-color) 60%, gray), color-mix(in srgb, var(--zen-primary-color) 60%, #c1c1c1));
+  --zen-folder-front-bgcolor: light-dark(color-mix(in srgb, var(--zen-primary-color), white 70%), color-mix(in srgb, var(--zen-primary-color), black 40%));
+  --zen-folder-stroke: light-dark(color-mix(in srgb, var(--zen-primary-color) 50%, black), color-mix(in srgb, var(--zen-colors-primary) 15%, #ebebeb));
 
   -moz-window-dragging: no-drag;
   transition: var(--zen-tabbox-element-indent-transition);
 
-  :root[zen-sidebar-expanded='true'] & {
+  :root[zen-sidebar-expanded="true"] & {
     margin-inline-start: var(--zen-folder-indent) !important;
   }
 
@@ -253,7 +73,7 @@ zen-folder {
     height: calc(var(--tab-block-margin) * 2 + var(--tab-min-height));
     padding-inline: var(--tab-group-label-padding);
 
-    :root[zen-sidebar-expanded='true'] & {
+    :root[zen-sidebar-expanded="true"] & {
       padding-inline-end: calc(var(--tab-group-label-padding) * 2);
     }
 
@@ -265,41 +85,71 @@ zen-folder {
     }
 
     .tab-group-folder-icon {
-      width: 30px;
+      width: 28px;
       height: 28px;
       align-content: center;
-      pointer-events: none;
       position: absolute;
       pointer-events: none;
 
       :root[zen-sidebar-expanded] & {
-        left: 4px;
+        left: 5px;
       }
 
       & svg {
         filter: contrast(125%);
-        transition: 0.2s scale;
-        transform-origin: right bottom;
+        transform: translate(-1px, -1px);
 
         :root:not([zen-sidebar-expanded]) & {
-          transform-origin: center bottom;
+          transition: transform 0.1s ease;
+
+          &[state="open"] {
+            transform: translate(-2px);
+          }
         }
 
         & image {
           fill-opacity: 0.9;
           -moz-context-properties: fill, fill-opacity;
-          fill: var(--zen-folder-stroke);
-          transform: translate(-182%, 2.4px);
+          fill: color-mix(in srgb, var(--zen-folder-stroke) 50%, currentColor);
+          transform: translate(8.5px, 10.5px);
         }
-      }
 
-      & svg[state='open'] {
-        scale: 0.92;
+        & g,
+        & rect,
+        & path {
+          transition:
+            transform 0.3s cubic-bezier(0.42, 0, 0, 1),
+            opacity 0.3s cubic-bezier(0.42, 0, 0, 1);
+        }
+
+        &[state="open"] .back {
+          transform: skewX(16deg) translate(-4px, 2px) scale(0.85);
+        }
+
+        &[state="open"] :is(.front, .dots, .icon) {
+          transform: skewX(-16deg) translate(8px, 2px) scale(0.85);
+        }
+
+        & .icon {
+          opacity: 1;
+        }
+
+        & .dots {
+          opacity: 0;
+        }
+
+        &[active="true"] .icon {
+          opacity: 0;
+        }
+
+        &[active="true"] .dots {
+          opacity: 1;
+        }
       }
     }
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 2px;
       left: 2px;
@@ -326,9 +176,8 @@ zen-folder {
 
     & > label {
       width: 100% !important;
-      background: transparent !important;
       border: none !important;
-      color: var(--sidebar-text-color) !important;
+      color: var(--toolbar-color) !important;
       margin: 0 !important;
       font-weight: 600;
       align-self: center !important;
@@ -340,16 +189,19 @@ zen-folder {
         padding: 0 !important;
         max-width: 100% !important;
       }
-    }
-  }
 
-  &[collapsed] {
-    & > .tabbrowser-tab:not([hidden]) {
+      &[live-folder-animation] {
+        background: linear-gradient(270deg, var(--sidebar-text-color), color-mix(in srgb, var(--sidebar-text-color) 25%, transparent));
+        background-size: 400%;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .tab-reset-button[live-folder-action] {
+      list-style-image: url("chrome://browser/skin/zen-icons/security-broken.svg");
       display: flex;
-    }
-
-    & > .tab-group-container {
-      overflow-y: clip;
+      opacity: 1;
     }
   }
 
@@ -365,9 +217,14 @@ zen-folder {
   }
 }
 
+zen-workspace[collapsedpinnedtabs] .zen-workspace-pinned-tabs-section,
+zen-folder[collapsed] > .tab-group-container {
+  overflow-y: clip;
+}
+
 /* Tabs popup */
 #zen-folder-tabs-popup {
-  --arrowpanel-padding: 0;
+  --panel-padding: 0;
   width: 250px;
 
   & #zen-folder-tabs-search-no-results {
@@ -408,8 +265,8 @@ zen-folder {
 }
 
 #zen-folder-tabs-popup .zen-folder-tabs-list-search-icon {
-  width: 16px;
-  height: 16px;
+  width: var(--size-item-small);
+  height: var(--size-item-small);
   margin: 10px 2px 10px 10px;
   -moz-context-properties: fill;
   fill: currentColor;
@@ -417,8 +274,8 @@ zen-folder {
 }
 
 .folders-tabs-list-item-icon {
-  width: 16px;
-  height: 16px;
+  width: var(--size-item-small);
+  height: var(--size-item-small);
   flex-shrink: 0;
   margin-inline-end: 10px;
   margin-inline-start: 4px;
@@ -476,13 +333,13 @@ zen-folder {
   }
 
   &:last-child {
-    border-bottom-left-radius: max(calc(var(--panel-border-radius) - 6px), 4px);
-    border-bottom-right-radius: max(calc(var(--panel-border-radius) - 6px), 4px);
+    border-bottom-left-radius: max(calc(var(--panel-border-radius) - 2px), 4px);
+    border-bottom-right-radius: max(calc(var(--panel-border-radius) - 2px), 4px);
   }
 
   &:first-child {
-    border-top-left-radius: max(calc(var(--panel-border-radius) - 6px), 4px);
-    border-top-right-radius: max(calc(var(--panel-border-radius) - 6px), 4px);
+    border-top-left-radius: max(calc(var(--panel-border-radius) - 2px), 4px);
+    border-top-right-radius: max(calc(var(--panel-border-radius) - 2px), 4px);
   }
 }
 

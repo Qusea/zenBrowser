@@ -1,5 +1,5 @@
 diff --git a/browser/components/tabbrowser/content/tab.js b/browser/components/tabbrowser/content/tab.js
-index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a75453bdf49cb 100644
+index 8f2ebf3a0bd4e2af01cf41024b16bd491e8ed961..27721e26c3cd8cb066b462dedfa4ce785ca5c2c3 100644
 --- a/browser/components/tabbrowser/content/tab.js
 +++ b/browser/components/tabbrowser/content/tab.js
 @@ -21,6 +21,7 @@
@@ -10,12 +10,13 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
            <stack class="tab-icon-stack">
              <hbox class="tab-throbber"/>
              <hbox class="tab-icon-pending"/>
-@@ -37,8 +38,10 @@
-             <hbox class="tab-secondary-label">
-               <label class="tab-icon-sound-label tab-icon-sound-pip-label" data-l10n-id="browser-tab-audio-pip" role="presentation"/>
-             </hbox>
-+            <label class="tab-reset-pin-label" data-l10n-id="tab-reset-pin-label" role="presentation"/>
+@@ -35,9 +36,11 @@
+                 pack="center"
+                 flex="1">
+             <label class="tab-text tab-label" role="presentation"/>
++            <label class="zen-tab-sublabel" data-l10n-id="zen-tab-sublabel" data-l10n-args='{"tabSubtitle": "zen-default-pinned"}' role="presentation"/>
            </vbox>
+           <image class="tab-note-icon" role="presentation"/>
            <image class="tab-close-button close-icon" role="button" data-l10n-id="tabbrowser-close-tabs-button" data-l10n-args='{"tabCount": 1}' keyNav="false"/>
 +          <image class="tab-reset-button reset-icon" role="button" data-l10n-id="tabbrowser-unload-tab-button" data-l10n-args='{"tabCount": 1}' keyNav="false"/>
          </hbox>
@@ -30,9 +31,12 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
          ".tab-throbber":
            "fadein,pinned,busy,progress,selected=visuallyselected",
          ".tab-icon-pending":
-@@ -95,7 +98,7 @@
+@@ -93,9 +96,9 @@
+           "src=image,requestcontextid,fadein,pinned,selected=visuallyselected,busy,crashed,sharing,pictureinpicture,pending,discarded",
+         ".tab-sharing-icon-overlay": "sharing,selected=visuallyselected,pinned",
          ".tab-icon-overlay":
-           "sharing,pictureinpicture,crashed,busy,soundplaying,soundplaying-scheduledremoval,pinned,muted,blocked,selected=visuallyselected,activemedia-blocked",
+-          "sharing,pictureinpicture,crashed,busy,soundplaying,soundplaying-scheduledremoval,pinned,muted,blocked,selected=visuallyselected,activemedia-blocked",
++          "zen-essential,sharing,pictureinpicture,crashed,busy,soundplaying,soundplaying-scheduledremoval,pinned,muted,blocked,selected=visuallyselected,activemedia-blocked",
          ".tab-audio-button":
 -          "crashed,soundplaying,soundplaying-scheduledremoval,pinned,muted,activemedia-blocked",
 +          "zen-essential,crashed,soundplaying,soundplaying-scheduledremoval,pinned,muted,activemedia-blocked",
@@ -48,7 +52,7 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
          return;
        }
  
-@@ -220,11 +223,21 @@
+@@ -220,11 +223,25 @@
      }
  
      get visible() {
@@ -60,22 +64,26 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
 +      if (!this.isOpen || this.hidden || this.hasAttribute("zen-empty-tab")) {
 +        return false;
 +      }
-+
 +      // Selected tabs are always visible
-+      if ((this.selected || this.multiselected || this.hasAttribute("folder-active")) && !this.hasAttribute("was-folder-active")) return true;
++      if (this.selected || this.multiselected) return true;
 +      // Recursively check all parent groups
 +      let currentParent = this.group;
 +      while (currentParent) {
-+        if (currentParent.collapsed) {
++        if (currentParent.collapsed && !currentParent.activeTabs?.includes(this)) {
 +          return false;
 +        }
 +        currentParent = currentParent.group;
++      }
++      if (this.pinned && !this.hasAttribute("zen-essential") &&
++          gZenWorkspaces.activeWorkspaceElement?.hasCollapsedPinnedTabs &&
++          !gZenWorkspaces.activeWorkspaceElement.collapsiblePins.activeTabs?.includes(this)) {
++        return false;
 +      }
 +      return true;
      }
  
      get hidden() {
-@@ -295,7 +308,7 @@
+@@ -303,7 +320,7 @@
          return false;
        }
  
@@ -84,21 +92,46 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
      }
  
      get lastAccessed() {
-@@ -372,8 +385,11 @@
+@@ -388,7 +405,18 @@
      }
  
      get group() {
--      if (this.parentElement?.tagName == "tab-group") {
--        return this.parentElement;
+-      return this.closest("tab-group");
 +      if (typeof gBrowser === "undefined") {
 +        return null;
 +      }
 +      if (gBrowser.isTabGroup(this.parentElement?.parentElement)) {
 +        return this.parentElement.parentElement;
-       }
-       return null;
++      }
++      if (this.pinned && !this.hasAttribute('zen-essential')) {
++        let collapsiblePins = gZenWorkspaces.workspaceElement(this.getAttribute('zen-workspace-id'))?.collapsiblePins;
++        if (collapsiblePins?.collapsed) {
++          return collapsiblePins;
++        }
++      }
      }
-@@ -459,6 +475,8 @@
+ 
+     get splitview() {
+@@ -470,6 +498,10 @@
+         }
+       }
+ 
++      if (event.target.classList.contains("tab-reset-pin-button")) {
++        gZenPinnedTabManager.onResetPinButtonMouseOver(this, event);
++      }
++
+       // If the previous target wasn't part of this tab then this is a mouseenter event.
+       if (!this.contains(event.relatedTarget)) {
+         this._mouseenter();
+@@ -499,6 +531,7 @@
+       if (!this.contains(event.relatedTarget)) {
+         this._mouseleave();
+       }
++      gZenPinnedTabManager.onResetPinButtonMouseOut(this);
+     }
+ 
+     on_dragstart(event) {
+@@ -533,6 +566,8 @@
          this.style.MozUserFocus = "ignore";
        } else if (
          event.target.classList.contains("tab-close-button") ||
@@ -107,7 +140,16 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
          event.target.classList.contains("tab-icon-overlay") ||
          event.target.classList.contains("tab-audio-button")
        ) {
-@@ -513,6 +531,10 @@
+@@ -567,7 +602,7 @@
+           }
+         } else if (
+           event.altKey &&
+-          Services.prefs.getBoolPref("browser.tabs.splitView.enabled", false)
++          true
+         ) {
+           eventMaySelectTab = false;
+         } else if (!this.selected && this.multiselected) {
+@@ -592,6 +627,10 @@
        this.style.MozUserFocus = "";
      }
  
@@ -118,15 +160,61 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
      on_click(event) {
        if (event.button != 0) {
          return;
-@@ -561,6 +583,7 @@
-             )
-           );
-         } else {
-+          gZenPinnedTabManager._removePinnedAttributes(this, true);
-           gBrowser.removeTab(this, {
-             animate: true,
-             triggeringEvent: event,
-@@ -573,6 +596,14 @@
+@@ -615,14 +654,31 @@
+             trigger: "alt_click",
+           });
+         }
++        if (
++          !event.target.classList.contains("tab-close-button") &&
++          !event.target.classList.contains("tab-icon-overlay") &&
++          !event.target.classList.contains("tab-audio-button") &&
++          Services.prefs.getBoolPref("zen.splitView.enable-tab-click-split", false)
++        ) {
++          if (!this.splitView) {
++            gZenViewSplitter.contextSplitTabs(this);
++          } else {
++            gBrowser.selectedTab = this;
++            gZenViewSplitter.removeTabFromGroup(this, undefined, {
++              forUnsplit: true,
++              changeTab: false
++            });
++          }
++        }
+         return;
+       }
+ 
+-      if (event.getModifierState("Accel") || event.shiftKey) {
++      if (event.shiftKey) {
+         return;
+       }
+ 
+       if (
++        !event.getModifierState("Accel") &&
+         gBrowser.multiSelectedTabsCount > 0 &&
+         !event.target.classList.contains("tab-close-button") &&
+         !event.target.classList.contains("tab-icon-overlay") &&
+@@ -634,8 +690,9 @@
+       }
+ 
+       if (
+-        event.target.classList.contains("tab-icon-overlay") ||
+-        event.target.classList.contains("tab-audio-button")
++        !event.getModifierState("Accel") &&
++        (event.target.classList.contains("tab-icon-overlay") ||
++        event.target.classList.contains("tab-audio-button"))
+       ) {
+         if (this.activeMediaBlocked) {
+           if (this.multiselected) {
+@@ -653,7 +710,7 @@
+         return;
+       }
+ 
+-      if (event.target.classList.contains("tab-close-button")) {
++      if (!event.getModifierState("Accel") && event.target.classList.contains("tab-close-button")) {
+         if (this.multiselected) {
+           gBrowser.removeMultiSelectedTabs(
+             lazy.TabMetrics.userTriggeredContext(
+@@ -673,6 +730,14 @@
          // (see tabbrowser-tabs 'click' handler).
          gBrowser.tabContainer._blockDblClick = true;
        }
@@ -134,14 +222,14 @@ index fd2465046407261e8c29b4cd3d56122d232e701c..937068562975a26834572c408e9a7545
 +      if (event.target.classList.contains("tab-reset-pin-button")) {
 +        gZenPinnedTabManager._onTabResetPinButton(event, this, 'reset');
 +        gBrowser.tabContainer._blockDblClick = true;
-+      } else if (event.target.classList.contains("tab-reset-button")) {
-+        gZenPinnedTabManager._onCloseTabShortcut(event, this);
++      } else if (!event.getModifierState("Accel") && event.target.classList.contains("tab-reset-button")) {
++        gZenPinnedTabManager.onCloseTabShortcut(event, this);
 +        gBrowser.tabContainer._blockDblClick = true;
 +      }
      }
  
      on_dblclick(event) {
-@@ -596,6 +627,8 @@
+@@ -696,6 +761,8 @@
            animate: true,
            triggeringEvent: event,
          });

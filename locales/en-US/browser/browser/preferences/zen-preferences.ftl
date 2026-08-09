@@ -1,3 +1,6 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 pane-zen-looks-title = Look and Feel
 category-zen-looks =
@@ -8,9 +11,9 @@ zen-warning-language = Changing the default language could make it easier for We
 zen-vertical-tabs-layout-header = Browser Layout
 zen-vertical-tabs-layout-description = Choose the layout that suits you best
 
-zen-layout-single-toolbar = Single toolbar
-zen-layout-multiple-toolbar = Multiple toolbars
-zen-layout-collapsed-toolbar = Collapsed toolbar
+zen-layout-single-toolbar = Only Sidebar
+zen-layout-multiple-toolbar = Sidebar and Top Toolbar
+zen-layout-collapsed-toolbar = Collapsed Sidebar
 
 sync-currently-syncing-workspaces = Workspaces
 sync-engine-workspaces =
@@ -33,8 +36,6 @@ zen-glance-trigger-shift-click =
     .label = Shift + Click
 zen-glance-trigger-meta-click =
     .label = Meta (Command) + Click
-zen-glance-trigger-mantain-click =
-    .label = Hold Click (Coming Soon!)
 
 zen-look-and-feel-compact-view-header = Show in compact view
 zen-look-and-feel-compact-view-description = Only show the toolbars you use!
@@ -47,18 +48,33 @@ zen-look-and-feel-compact-view-top-toolbar =
 zen-look-and-feel-compact-toolbar-flash-popup =
     .label = Briefly make the toolbar popup when switching or opening new tabs in compact mode
 
+zen-look-and-feel-window-drag-header = Window dragging
+zen-look-and-feel-window-drag-description = Move the window by dragging empty space at the top of websites, just like the titlebar.
+zen-window-drag-enabled =
+    .label = Allow dragging the window from web pages
+
 pane-zen-tabs-title = Tab Management
 category-zen-workspaces =
     .tooltiptext = { pane-zen-tabs-title }
 pane-settings-workspaces-title = Workspaces
 
-zen-tabs-unloader-enabled =
-    .label = Enable Tab Unloader
+zen-tabs-select-recently-used-on-close =
+    .label = When closing a tab, switch to the most recently used tab instead of the next tab
+
+zen-tabs-close-on-back-with-no-history =
+    .label = Close tab and switch to its owner tab (or most recently used tab) when going back with no history
+
+zen-settings-workspaces-sync-unpinned-tabs =
+    .label = Sync only pinned tabs in workspaces
+
+zen-tabs-cycle-by-attribute =
+  .label = Ctrl+Tab cycles within Essential or Workspace tabs only
+zen-tabs-cycle-ignore-pending-tabs =
+  .label = Ignore Pending tabs when cycling with Ctrl+Tab
+zen-tabs-cycle-by-attribute-warning = Ctrl+Tab will cycle by recently used order, as it is enabled
 
 zen-look-and-feel-compact-toolbar-themed =
     .label = Use themed background for compact toolbar
-zen-look-and-feel-compact-sidebar-themed =
-    .label = Use themed background for compact sidebar
 
 zen-workspace-continue-where-left-off =
     .label = Continue where you left off
@@ -93,7 +109,7 @@ zen-settings-workspaces-hide-default-container-indicator =
     .label = Hide the default container indicator in the tab bar
 
 zen-key-unsaved = Unsaved shortcut! Please save it by clicking the "Escape" key after retyping it.
-zen-key-conflict = Conflict with another shortcut
+zen-key-conflict = Conflicts with { $group } -> { $shortcut }
 
 pane-zen-theme-title = Theme Settings
 
@@ -148,7 +164,7 @@ zen-theme-marketplace-input-default-placeholder =
     .placeholder = Type something...
 pane-zen-marketplace-title = Zen Mods
 zen-themes-auto-update =
-   .label = Automatically update installed mods on startup 
+   .label = Automatically update installed mods on startup
 
 zen-settings-workspaces-force-container-tabs-to-workspace =
     .label = Switch to workspace where container is set as default when opening container tabs
@@ -182,6 +198,9 @@ pane-zen-CKS-title = Keyboard Shortcuts
 category-zen-CKS =
     .tooltiptext = { pane-zen-CKS-title }
 pane-settings-CKS-title = { -brand-short-name } Keyboard Shortcuts
+
+category-zen-marketplace =
+    .tooltiptext = Zen Mods
 
 zen-settings-CKS-header = Customize your keyboard shortcuts
 zen-settings-CKS-description = Change the default keyboard shortcuts to your liking and improve your browsing experience
@@ -269,7 +288,8 @@ zen-page-info-shortcut = View Page Info
 zen-find-shortcut = Find on Page
 zen-search-find-again-shortcut = Find Again
 zen-search-find-again-shortcut-prev = Find Previous
-zen-search-find-again-shortcut-2 = Find Again (Alt)
+zen-search-find-again-shortcut-alt = Find Again (Alt)
+zen-search-find-again-shortcut-prev-alt = Find Previous (Alt)
 zen-bookmark-this-page-shortcut = Bookmark This Page
 zen-bookmark-show-library-shortcut = Show Bookmarks Library
 zen-key-stop = Stop Loading
@@ -307,12 +327,14 @@ zen-workspace-shortcut-switch-9 = Switch to Workspace 9
 zen-workspace-shortcut-switch-10 = Switch to Workspace 10
 zen-workspace-shortcut-forward = Forward Workspace
 zen-workspace-shortcut-backward = Backward Workspace
+zen-workspace-shortcut-create = Create New Workspace
 zen-sidebar-shortcut-toggle = Toggle Sidebar's Width
 zen-pinned-tab-shortcut-reset = Reset Pinned Tab to Pinned URL
 zen-split-view-shortcut-grid = Toggle Split View Grid
 zen-split-view-shortcut-vertical = Toggle Split View Vertical
 zen-split-view-shortcut-horizontal = Toggle Split View Horizontal
 zen-split-view-shortcut-unsplit = Close Split View
+zen-new-empty-split-view-shortcut = New Empty Split View
 zen-key-select-tab-1 = Select tab #1
 zen-key-select-tab-2 = Select tab #2
 zen-key-select-tab-3 = Select tab #3
@@ -340,3 +362,7 @@ zen-devtools-toggle-performance-shortcut = Toggle Performance
 zen-devtools-toggle-storage-shortcut = Toggle Storage
 zen-devtools-toggle-dom-shortcut = Toggle DOM
 zen-devtools-toggle-accessibility-shortcut = Toggle Accessibility
+zen-close-all-unpinned-tabs-shortcut = Close All Unpinned Tabs
+zen-new-unsynced-window-shortcut = New Blank Window
+zen-duplicate-tab-shortcut = Duplicate Tab
+zen-key-find-selection = Find Selection

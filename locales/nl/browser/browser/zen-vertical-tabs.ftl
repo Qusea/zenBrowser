@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Tabbladen aan de rechterkant
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Compacte modus
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Compacte modus inschakelen
     .accesskey = D
@@ -14,8 +17,11 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Beide verbergen
     .accesskey = U
+zen-toolbar-context-move-to-folder = 
+    .label = Verplaats naar map...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
-    .label = New Folder
+    .label = Nieuwe map
     .accesskey = N
 sidebar-zen-expand = 
     .label = Zijbalk uitklappen
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Tabblad resetten en vastmaken
            *[other] { $tabCount } tabbladen resetten en vastmaken
         }
-tab-reset-pin-label = Terug naar vastgemaakte URL
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Terug naar vastgezette URL
+        [zen-default-pinned-cmd] Afsplitsen van vastgezette tabblad
+       *[other] { $tabSubtitle }
+    }

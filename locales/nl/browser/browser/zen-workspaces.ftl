@@ -1,17 +1,31 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-panel-ui-workspaces-text = Ruimtes
+zen-panel-ui-spaces-label = 
+    .label = Ruimtes
 zen-panel-ui-workspaces-create = 
     .label = Ruimte aanmaken
 zen-panel-ui-folder-create = 
-    .label = Create Folder
+    .label = Map aanmaken
+zen-panel-ui-live-folder-create = 
+    .label = Live map
+zen-panel-ui-new-empty-split = 
+    .label = Nieuwe splitsing
 zen-workspaces-panel-context-delete = 
     .label = Ruimte verwijderen
     .accesskey = D
 zen-workspaces-panel-change-name = 
     .label = Naam wijzigen
 zen-workspaces-panel-change-icon = 
-    .label = Icon wijzigen
+    .label = Icoon wijzigen
 zen-workspaces-panel-context-default-profile = 
     .label = Profiel instellen
+zen-workspaces-panel-unload = 
+    .label = Ruimte ontladen
+zen-workspaces-panel-unload-others = 
+    .label = Alle andere ruimtes ontladen
 zen-workspaces-how-to-reorder-title = Hoe ruimtes te herschikken
 zen-workspaces-how-to-reorder-desc = Sleep het ruimte icoon onderaan de zijbalk om ze te herschikken
 zen-workspaces-change-theme = 
@@ -22,11 +36,8 @@ zen-workspaces-panel-context-open =
 zen-workspaces-panel-context-edit = 
     .label = Ruimte bewerken
     .accesskey = E
-context-zen-change-workspace-tab = 
-    .label = Tabblad(en) veranderen naar ruimte
-    .accesskey = C
 zen-bookmark-edit-panel-workspace-selector = 
-    .value = Werkruimtes
+    .value = Ruimtes
     .accesskey = W
 zen-panel-ui-gradient-generator-algo-complementary = 
     .label = Aanvullend
@@ -41,6 +52,9 @@ zen-panel-ui-gradient-generator-algo-floating =
 zen-panel-ui-gradient-click-to-add = Klik om een kleur toe te voegen
 zen-workspace-creation-name = 
     .placeholder = Ruimte naam
+zen-move-tab-to-workspace-button = 
+    .label = Verplaats naar...
+    .tooltiptext = Verplaats alle tabbladen in dit venster naar een ruimte
 zen-workspaces-panel-context-reorder = 
     .label = Ruimtes herschikken
 zen-workspace-creation-profile = Profiel
@@ -48,4 +62,14 @@ zen-workspace-creation-profile = Profiel
 zen-workspace-creation-header = Maak een ruimte
 zen-workspace-creation-label = Ruimtes worden gebruikt om je tabbladen en sessies te organiseren.
 zen-workspaces-delete-workspace-title = Ruimte verwijderen?
-zen-workspaces-delete-workspace-body = Are you sure you want to delete { $name }? This action cannot be undone.
+zen-workspaces-delete-workspace-body = Weet je zeker dat je { $name } wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden.
+# Note that the html tag MUST not be changed or removed, as it is used to better
+# display the shortcut in the toast notification.
+zen-workspaces-close-all-unpinned-tabs-toast = Tabbladen gesloten! Gebruik <span>{ $shortcut }</span> om ongedaan te maken.
+zen-workspaces-close-all-unpinned-tabs-title = 
+    .label = Wissen
+    .tooltiptext = Alle niet-vastgezette tabbladen sluiten
+zen-panel-ui-workspaces-change-forward = 
+    .label = Volgende ruimte
+zen-panel-ui-workspaces-change-back = 
+    .label = Vorige ruimte

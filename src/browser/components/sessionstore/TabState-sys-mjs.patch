@@ -1,23 +1,33 @@
 diff --git a/browser/components/sessionstore/TabState.sys.mjs b/browser/components/sessionstore/TabState.sys.mjs
-index 82721356d191055bec0d4b0ca49e481221988801..9c8a2b1791e780e0fcd3a9bfc7efdadf35d52165 100644
+index 4ba4dda363b602cb6f4445ef056f2f9abb1b0e1e..6b4b407e05e26faca69d9d7ac6f31510620898fe 100644
 --- a/browser/components/sessionstore/TabState.sys.mjs
 +++ b/browser/components/sessionstore/TabState.sys.mjs
-@@ -85,6 +85,18 @@ class _TabState {
-       tabData.groupId = tab.group.id;
+@@ -99,10 +99,28 @@ class _TabState {
+       }
      }
  
 +    tabData.zenWorkspace = tab.getAttribute("zen-workspace-id");
-+    tabData.zenPinnedId = tab.getAttribute("zen-pin-id");
-+    tabData.zenEssential = tab.getAttribute("zen-essential");
++    tabData.zenSyncId = tab.getAttribute("id");
++    tabData.zenEssential = tab.getAttribute("zen-essential") === "true";
 +    tabData.pinned = tabData.pinned || tabData.zenEssential;
 +    tabData.zenDefaultUserContextId = tab.getAttribute("zenDefaultUserContextId");
-+    tabData.zenPinnedEntry = tab.getAttribute("zen-pinned-entry");
 +    tabData.zenPinnedIcon = tab.getAttribute("zen-pinned-icon");
 +    tabData.zenIsEmpty = tab.hasAttribute("zen-empty-tab");
-+    tabData.zenHasStaticLabel = tab.hasAttribute("zen-has-static-label");
++    tabData.zenStaticLabel = tab.zenStaticLabel;
++    tabData.zenHasStaticIcon = !!tab.zenStaticIcon;
 +    tabData.zenGlanceId = tab.getAttribute("glance-id");
 +    tabData.zenIsGlance = tab.hasAttribute("zen-glance-tab");
++    tabData._zenPinnedInitialState = tab._zenPinnedInitialState;
++    tabData._zenIsActiveTab = tab._zenContentsVisible;
++    tabData.zenLiveFolderItemId = tab.getAttribute("zen-live-folder-item-id");
 +
-     tabData.searchMode = tab.ownerGlobal.gURLBar.getSearchMode(browser, true);
+     tabData.searchMode = tab.documentGlobal.gURLBar.getSearchMode(
+       browser,
+       true
+     );
++    if (tabData.searchMode?.source === tab.documentGlobal.UrlbarUtils.RESULT_SOURCE.ZEN_ACTIONS) {
++      delete tabData.searchMode;
++    }
  
      tabData.userContextId = tab.userContextId || 0;
+ 

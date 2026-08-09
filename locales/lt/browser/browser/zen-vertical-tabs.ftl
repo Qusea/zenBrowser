@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Kortelės dešinėje
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Kompaktinis režimas
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Įjungti kompaktinį režimą
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Slėpti abi
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Perkelti į aplanką...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Naujas aplankas
     .accesskey = N
@@ -37,4 +43,9 @@ tabbrowser-reset-pin-button =
             [many] Atkurti ir prisegti { $tabCount } kortelės
            *[other] Atkurti ir prisegti { $tabCount } kortelių
         }
-tab-reset-pin-label = Atgal į prisegtą URL
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Atgal į prisegtą URL
+        [zen-default-pinned-cmd] Atskirti nuo prisegtos kortelės
+       *[other] { $tabSubtitle }
+    }

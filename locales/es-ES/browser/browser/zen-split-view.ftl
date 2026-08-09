@@ -1,8 +1,13 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 tab-zen-split-tabs = 
     .label =
         { $tabCount ->
-            [1] Vista dividida (se necesitan varias pestañas seleccionadas)
-           *[other] Añadir { $tabCount } pestañas a vista dividida
+            [-1] Separar pestaña
+            [1] Añadir vista dividida...
+           *[other] Unir { $tabCount } pestañas
         }
     .accesskey = S
 zen-split-link = 
@@ -11,6 +16,3 @@ zen-split-link =
 zen-split-view-modifier-header = Vista dividida
 zen-split-view-modifier-activate-reallocation = 
     .label = Activar reorganización
-zen-split-view-modifier-enabled-toast = La reorganización de la vista dividida está encendida.
-zen-split-view-modifier-enabled-toast-description = Arrastre y suelte la vista para reorganizar. Presione Esc para salir.
-zen-split-view-modifier-disabled-toast = La reorganización de la vista dividida está apagada.

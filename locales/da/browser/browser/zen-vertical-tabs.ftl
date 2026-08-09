@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Faner til højre
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Kompakt tilstand
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Aktivér kompakt tilstand
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Skjul begge
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Move to Folder...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Ny mappe
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Nulstil og fastgør fane
            *[other] Nulstil og fastgør { $tabCount } faner
         }
-tab-reset-pin-label = Tilbage til fastgjort URL
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Back to pinned url
+        [zen-default-pinned-cmd] Separate from pinned tab
+       *[other] { $tabSubtitle }
+    }

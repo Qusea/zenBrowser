@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Abas à direita
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Modo compacto
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Ativar modo compacto
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Esconder os dois
     .accesskey = A
+zen-toolbar-context-move-to-folder = 
+    .label = Mover para Pasta...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = Nova Pasta
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Redefinir e fixar aba
            *[other] Redefinir e fixar { $tabCount } abas
         }
-tab-reset-pin-label = Voltar para a Url fixada
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Voltar para url fixada
+        [zen-default-pinned-cmd] Separar da aba fixada
+       *[other] { $tabSubtitle }
+    }

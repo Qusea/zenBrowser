@@ -1,21 +1,27 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = Schede a destra
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = Modalità compatta
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = Abilita modalità compatta
     .accesskey = D
 zen-toolbar-context-compact-mode-just-tabs = 
     .label = Nascondi barra laterale
 zen-toolbar-context-compact-mode-just-toolbar = 
-    .label = Nascondi barra strumenti
+    .label = Nascondi barra degli strumenti
 zen-toolbar-context-compact-mode-hide-both = 
     .label = Nascondi entrambi
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = Move to Folder...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
-    .label = New Folder
+    .label = Nuova cartella
     .accesskey = N
 sidebar-zen-expand = 
     .label = Espandi barra laterale
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] Reimposta e fissa la scheda
            *[other] Reimposta e fissa le { $tabCount } schede
         }
-tab-reset-pin-label = Torna all'url fissato
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Back to pinned url
+        [zen-default-pinned-cmd] Separate from pinned tab
+       *[other] { $tabSubtitle }
+    }

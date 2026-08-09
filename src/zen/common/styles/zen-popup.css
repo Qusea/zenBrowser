@@ -3,15 +3,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-@import url('chrome://browser/content/zen-styles/zen-panels/bookmarks.css');
-@import url('chrome://browser/content/zen-styles/zen-panels/print.css');
-@import url('chrome://browser/content/zen-styles/zen-panels/dialog.css');
+@import url("chrome://browser/content/zen-styles/zen-panels/bookmarks.css");
+@import url("chrome://browser/content/zen-styles/zen-panels/print.css");
+@import url("chrome://browser/content/zen-styles/zen-panels/dialog.css");
 
 :root {
-  --panel-subview-body-padding: 2px 0;
   --arrowpanel-menuitem-border-radius: 5px;
-  --arrowpanel-menuitem-margin: var(--uc-arrowpanel-menuitem-margin-block)
-    var(--uc-arrowpanel-menuitem-margin-inline);
+  --arrowpanel-menuitem-margin: var(--uc-arrowpanel-menuitem-margin-block) var(--uc-arrowpanel-menuitem-margin-inline);
   --arrowpanel-menuitem-padding-block: 8px;
   --arrowpanel-menuitem-padding-inline: 14px;
   --uc-arrowpanel-menuicon-margin-inline: 14px;
@@ -22,29 +20,30 @@
 
   --uc-panel-zoom-button-padding: 8px;
   --uc-panel-zoom-button-inline-padding: 9px;
-  --uc-panel-zoom-padding-block: calc(
-    var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)
-  );
+  --uc-panel-zoom-padding-block: calc(var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block));
 
   --uc-autocomplete-panel-menuitem-margin: 4px;
   --uc-autocomplete-panel-menuicon-padding-inline: 14px;
   --uc-autocomplete-panel-separator-margin-vertical: 4px;
 
   --uc-permission-itemcontainer-padding-block: 8px;
-  --uc-permission-item-margin-block: 4px;
   --uc-permission-item-padding-inline: 16px;
   --zen-panel-separator-width: 1px;
 }
 
 menupopup,
 panel {
-  --panel-background: var(--arrowpanel-background);
+  --panel-background-color: var(--arrowpanel-background);
   --menuitem-padding: 6px !important;
-  --panel-shadow-margin: 10px;
+  --panel-box-shadow-margin: 8px;
 
-  /* This should match GetMenuMaskImage() on macOS, or be overridden below */
+  /* This should match GetMenuCornerRadius() on macOS, or be overridden below */
   @media (-moz-platform: macos) {
     --panel-border-radius: 10px;
+
+    @media (-moz-mac-tahoe-theme) {
+      --panel-border-radius: 12px;
+    }
   }
 }
 
@@ -68,10 +67,7 @@ panel {
 }
 
 .widget-overflow-list .toolbarbutton-1:not(.toolbarbutton-combined) > .toolbarbutton-text,
-.subviewbutton:not(#appMenu-zoom-controls > .subviewbutton)
-  > .toolbarbutton-icon
-  + .toolbarbutton-text,
-#appMenu-fxa-label2 > vbox {
+.subviewbutton:not(#appMenu-zoom-controls > .subviewbutton) > .toolbarbutton-icon + .toolbarbutton-text {
   padding-inline-start: var(--uc-arrowpanel-menuicon-margin-inline);
 }
 
@@ -82,15 +78,12 @@ panel {
   padding-inline-start: calc(16px + var(--uc-arrowpanel-menuicon-margin-inline));
 }
 
-/* Firefox profile avatar in appmenu */
-#appMenu-fxa-label2::before {
-  content: '';
-  display: -moz-box;
-  height: 16px;
-  width: 16px;
-  background: var(--avatar-image-url) 0/16px;
-  scale: 1.25;
-  border-radius: 99px;
+/* Allow localized zoom labels to shrink so the fullscreen button stays visible. */
+#appMenu-zoom-controls > .toolbarbutton-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* disable proton account separator */
@@ -102,17 +95,10 @@ panel {
   padding-block: 0;
 }
 
-#appMenu-fxa-status2:not([fxastatus]) > #appMenu-fxa-label2 {
-  margin-inline-end: calc(var(--arrowpanel-menuitem-padding-inline) * -1);
-}
-
 /* zoom controls */
 #appMenu-zoom-controls {
   border-top: 1px solid var(--panel-separator-color);
-  padding-inline: calc(
-      var(--arrowpanel-menuitem-padding-inline) + var(--uc-arrowpanel-menuitem-margin-inline)
-    )
-    var(--uc-arrowpanel-menuitem-margin-inline);
+  padding-inline: calc(var(--arrowpanel-menuitem-padding-inline) + var(--uc-arrowpanel-menuitem-margin-inline)) var(--uc-arrowpanel-menuitem-margin-inline);
   padding-block: var(--uc-panel-zoom-padding-block);
   margin: var(--panel-separator-margin-vertical) 0 calc(var(--panel-separator-margin-vertical) * -1);
 }
@@ -128,29 +114,24 @@ panel {
 
 /* #appMenu-zoomReduce-button2, */
 #appMenu-zoom-controls > #appMenu-fullscreen-button2 {
-  margin-left: calc(
-    (var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) * 2 + 1px
-  );
+  margin-inline-start: calc((var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) * 2 + 1px);
 }
 
 #appMenu-zoom-controls > #appMenu-fullscreen-button2::before {
-  content: '';
+  content: "";
   border-inline-start: 1px solid var(--panel-separator-color);
   display: block;
   position: relative;
-  height: 32px;
+  height: var(--size-item-large);
   margin-block: calc(var(--uc-panel-zoom-button-padding) * -1);
   transform: translateX(
-    calc(
-      var(--uc-panel-zoom-button-inline-padding) * -1 -
-        (var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) - 1px
-    )
+    calc(var(--uc-panel-zoom-button-inline-padding) * -1 - (var(--panel-separator-margin-vertical) + var(--uc-arrowpanel-menuitem-margin-block)) - 1px)
   );
 }
 
 #appMenu-zoomReset-button2 {
-  height: calc(16px + var(--uc-panel-zoom-button-padding) * 2);
-  min-height: calc(16px + var(--uc-panel-zoom-button-padding) * 2);
+  height: calc(var(--size-item-small) + var(--uc-panel-zoom-button-padding) * 2);
+  min-height: calc(var(--size-item-small) + var(--uc-panel-zoom-button-padding) * 2);
 }
 
 #appMenu-zoomReduce-button2:not([disabled], [open], :active):is(:hover),
@@ -177,10 +158,6 @@ panel {
   opacity: 0.7;
 }
 
-#widget-overflow-mainView .panel-subview-body {
-  padding-bottom: 0;
-}
-
 .PanelUI-subView > .panel-header + toolbarseparator {
   margin-bottom: 0;
 }
@@ -197,7 +174,7 @@ panel {
 #identity-popup-mainView-panel-header,
 #protections-popup-mainView-panel-header,
 .panel-header {
-  min-height: calc((var(--arrowpanel-menuitem-padding-block) + 4px) * 2 + 16px);
+  min-height: calc((var(--arrowpanel-menuitem-padding-block) + 4px) * 2 + var(--size-item-small));
 }
 
 /* URL bar popup */
@@ -227,24 +204,15 @@ panel {
 }
 
 .permission-popup-permission-item,
+.permission-popup-boost-item,
 #permission-popup-storage-access-permission-list-header {
-  margin-block: var(--uc-permission-item-margin-block);
-}
-
-.permission-popup-permission-label,
-.permission-popup-permission-header-label {
-  margin-inline-start: var(--uc-arrowpanel-menuicon-margin-inline);
+  padding-block: 4px;
+  margin-block: 0;
 }
 
 #editBookmarkPanel > #editBookmarkHeaderSeparator,
 #editBookmarkPanel > .panel-subview-body > #editBookmarkSeparator {
   margin-inline: 0;
-}
-
-#identity-popup-mainView > toolbarseparator:first-child,
-#unified-extensions-view > toolbarseparator:first-child {
-  display: none;
-  opacity: 0;
 }
 
 menupopup,
@@ -330,7 +298,7 @@ menuseparator {
   cursor: pointer;
 }
 
-#editBMPanel_workspaceList input[type='checkbox'] {
+#editBMPanel_workspaceList input[type="checkbox"] {
   margin-right: 8px;
 }
 
@@ -344,37 +312,33 @@ menuseparator {
   display: flex;
   align-items: end;
 
-  :root:not([zen-right-side='true']) & {
+  :root:not([zen-right-side="true"]) & {
     right: var(--zen-toast-spacing);
   }
 
-  :root[zen-right-side='true'] & {
+  :root[zen-right-side="true"] & {
     left: var(--zen-toast-spacing);
   }
 
   & .zen-toast {
-    :root[zen-right-side='true'] & {
+    :root[zen-right-side="true"] & {
       translate: 100%;
     }
 
     --zen-toast-padding: 6px;
-    --zen-toast-max-height: 46px;
+    --zen-toast-max-height: 42px;
     @media (-moz-platform: macos) {
-      --zen-toast-padding: 10px;
-      --zen-toast-max-height: 52px;
+      --zen-toast-padding: 8px;
+      --zen-toast-max-height: 48px;
     }
 
-    gap: 10px;
+    gap: 8px;
     z-index: 1000;
     padding: var(--zen-toast-padding);
-    border-radius: calc(var(--zen-native-inner-radius) + 6px);
-    background: linear-gradient(
-      170deg,
-      var(--zen-primary-color) -40%,
-      color-mix(in srgb, var(--zen-primary-color) 85%, #0f0f0f 15%)
-    );
-    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: linear-gradient(to bottom, var(--zen-primary-color) -40%, color-mix(in srgb, var(--zen-primary-color), #0f0f0f 20%));
+    box-shadow: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)) 0 0 22px 2px;
+    border: none;
     display: flex;
     font-weight: 600;
     align-items: center;
@@ -391,22 +355,45 @@ menuseparator {
     }
 
     & label {
-      margin-top: 0;
-      margin-bottom: 0;
+      margin: 0 4px;
+
+      & span {
+        background: light-dark(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+        border-radius: 4px;
+        padding: 5px 7px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 2px;
+        word-spacing: 2px;
+      }
     }
 
     & button {
       width: min-content;
-      padding: 0 10px !important;
+      padding: 0 8px !important;
       min-width: unset !important;
-      margin: 0px !important;
-      border-radius: calc(var(--zen-native-inner-radius) + 2px) !important;
-      background: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)) !important;
-      border: 1px solid light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.15)) !important;
+      min-height: 28px;
+      margin: 0 !important;
+      border-radius: 6px !important;
+      border-top: 2px solid light-dark(transparent, rgba(255, 255, 255, 0.1));
       color: light-dark(rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8)) !important;
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.05);
+      background: light-dark(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1)) !important;
 
-      :root[zen-right-side='true'] & {
+      outline: 0.5px solid light-dark(transparent, rgba(255, 255, 255, 0.02));
+      outline-offset: -0.5px;
+
+      :root[zen-right-side="true"] & {
         order: -1;
+      }
+
+      & .button-text {
+        display: none;
+      }
+
+      & .button-icon {
+        width: 14px;
+        opacity: 0.6;
       }
     }
   }

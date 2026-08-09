@@ -1,8 +1,13 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 tab-zen-split-tabs = 
     .label =
         { $tabCount ->
-            [1] Bölünmüş Sekme (birden fazla seçilmiş sekme gerekir)
-           *[other] { $tabCount } Sekmeyi Böl
+            [-1] Sekmeyi ayır
+            [1] Bölünmüş görünüme ekle...
+           *[other] { $tabCount } sekmeyi birleştir
         }
     .accesskey = S
 zen-split-link = 
@@ -11,6 +16,3 @@ zen-split-link =
 zen-split-view-modifier-header = Bölünmüş Görünüm
 zen-split-view-modifier-activate-reallocation = 
     .label = Gerçek konumu aktif et
-zen-split-view-modifier-enabled-toast = Bölünmüş görünümü yeniden düzenleme AÇIK.
-zen-split-view-modifier-enabled-toast-description = Yeniden düzenleme için görünümü sürükle ve bırak. Çıkmak için Esc'ye basın.
-zen-split-view-modifier-disabled-toast = Bölünmüş görünümü yeniden düzenleme KAPALI.

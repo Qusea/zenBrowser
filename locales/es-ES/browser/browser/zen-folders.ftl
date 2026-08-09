@@ -1,3 +1,7 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-folders-search-placeholder = 
     .placeholder = Buscar { $folder-name }...
 zen-folders-panel-rename-folder = 
@@ -12,8 +16,6 @@ zen-folders-panel-convert-folder-to-space =
     .label = Convertir carpeta en espacio
 zen-folders-panel-change-folder-space = 
     .label = Cambiar espacio...
-zen-folders-panel-change-icon-folder = 
-    .label = Cambiar icono
 zen-folders-unload-all-tooltip = 
     .tooltiptext = Suspensión activa en esta carpeta
 zen-folders-unload-folder = 

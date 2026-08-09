@@ -1,12 +1,13 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 zen-toolbar-context-tabs-right =
     .label = Tabs on the right
     .accesskey = R
 
 zen-toolbar-context-compact-mode =
-    .label = Compact mode
-    .accesskey = C
-
+    .label = Compact Mode
 zen-toolbar-context-compact-mode-enable =
     .label = Enable compact mode
     .accesskey = D
@@ -17,6 +18,11 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both =
     .label = Hide both
     .accesskey = H
+
+zen-toolbar-context-move-to-folder =
+    .label = Move to Folder
+    .accesskey = M
+
 zen-toolbar-context-new-folder =
     .label = New Folder
     .accesskey = N
@@ -25,7 +31,7 @@ sidebar-zen-expand =
   .label = Expand Sidebar
 
 sidebar-zen-create-new =
-  .label = Create New...
+  .label = Create New
 
 tabbrowser-unload-tab-button =
 .tooltiptext =
@@ -40,4 +46,10 @@ tabbrowser-reset-pin-button =
         [one] Reset and pin tab
         *[other] Reset and pin { $tabCount } tabs
     }
-tab-reset-pin-label = Back to pinned url
+
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] Back to pinned url
+        [zen-default-pinned-cmd] Separate from pinned tab
+        *[other] { $tabSubtitle }
+    }

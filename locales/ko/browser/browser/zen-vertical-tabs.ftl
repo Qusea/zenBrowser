@@ -1,9 +1,12 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 zen-toolbar-context-tabs-right = 
     .label = 탭을 우측으로 놓기
     .accesskey = R
 zen-toolbar-context-compact-mode = 
     .label = 사이드바 축소 모드
-    .accesskey = C
 zen-toolbar-context-compact-mode-enable = 
     .label = 사이드바 축소 모드 활성화
     .accesskey = D
@@ -14,6 +17,9 @@ zen-toolbar-context-compact-mode-just-toolbar =
 zen-toolbar-context-compact-mode-hide-both = 
     .label = 둘 다 숨기기
     .accesskey = H
+zen-toolbar-context-move-to-folder = 
+    .label = 폴더로 옮기기...
+    .accesskey = M
 zen-toolbar-context-new-folder = 
     .label = 새 폴더
     .accesskey = N
@@ -33,4 +39,9 @@ tabbrowser-reset-pin-button =
             [one] 탭 초기화 후 고정
            *[other] { $tabCount }개 탭 초기화 후 고정
         }
-tab-reset-pin-label = 고정된 URL로 되돌리기
+zen-tab-sublabel =
+    { $tabSubtitle ->
+        [zen-default-pinned] 고정된 URL로 돌아가기
+        [zen-default-pinned-cmd] 고정된 탭에서 분리
+       *[other] { $tabSubtitle }
+    }
